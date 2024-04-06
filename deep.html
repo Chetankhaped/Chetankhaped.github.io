@@ -1,0 +1,974 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <title>Lenscan.ai</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll; /* Enable vertical scrolling */
+      background:linear-gradient(280deg, #ffffff, #ffffff); /* Gradient background */
+    }
+  
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+  
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+  
+    .sidebar a:hover {
+      color: #f1f1f1;
+    }
+  
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+  
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #212020;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+    }
+  
+    .openbtn:hover {
+      background-color: #444;
+    }
+  
+    .dropdown-content {
+      display: none;
+      padding-left: 20px;
+    }
+  
+    .dropdown-content a {
+      color: #818181;
+      text-decoration: none;
+      display: block;
+      padding: 10px 0;
+    }
+  
+    .dropdown-content a:hover {
+      color: #f1f1f1;
+    }
+  
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  
+    /* Image Slider Styles */
+    .slider {
+      position: relative;
+      width: 100%; /* Full page width */
+      max-width: 800px;
+      margin: 0 auto; /* Center horizontally */
+      overflow: hidden;
+    }
+  
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+  
+    .slide {
+      min-width: 100%;
+      height: auto;
+    }
+  
+    /* Slider Navigation Buttons */
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      padding: 16px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-weight: bold;
+      z-index: 1;
+    }
+  
+    .prev {
+      left: 0;
+    }
+  
+    .next {
+      right: 0;
+    }
+  
+    /* ... (previous styles) */
+  
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #ccc;
+  }
+  
+  /* Arrow Keys Styles */
+  .arrow-up,
+  .arrow-down {
+    position: fixed;
+    font-size: 20px;
+    width: 10px;
+    height: 20px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .arrow-up {
+    top: 10px;
+  }
+  
+  .arrow-down {
+    bottom: 10px;
+  }
+  
+  
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #ccc;
+  }
+          /* Style for search container */
+          .search-container {
+            position: relative;
+            width: 300px; /* Adjust width as needed */
+        }
+
+        /* Style for search input */
+        #search-input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        /* Style for search button */
+        #search-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px; /* Adjust size as needed */
+            height: 100%;
+            background-color: #f2f2f2;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        /* Style for search icon */
+        #search-button img {
+            width: 20px; /* Adjust size as needed */
+            height: auto;
+            padding: 10px;
+        }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+  
+    /* Logo styles */
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+  
+    /* Dropdown styles */
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .w3-green, .w3-hover-green:hover {
+      color: #fff !important;
+      background-color: #1c201c00 !important;
+    }
+    
+    section :nth-child(odd){
+     
+      background-color: #1a0dab00;
+      
+      color: rgb(0, 0, 0);
+  }
+  .section-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 5%;
+    margin-right: 0; /* Remove the right margin */
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1f242d;
+    font-size: 100px;
+    color: #fff;
+    font-weight: 700;
+    margin: 0; /* Added to reset margin */
+}
+
+  
+  .step-icon {
+    background-color: #007bff;
+    color: #fff;
+   
+    border-radius: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+    font-size: 40px;
+    transition: all 0.3s ease;
+}
+.upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.upload-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-icon:hover {
+  background-color: #0056b3; /* Darker color on hover */
+}
+
+.icon {
+  color: #fff; /* Icon color */
+  font-size: 36px; /* Adjust size as needed */
+}
+.complete-icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: #008000; /* Icon color (green) */
+  font-size: 24px; /* Adjust size as needed */
+  margin-right: 5px; /* Spacing between icon and label */
+}
+
+.label {
+  font-size: 16px; /* Label font size */
+  color: #333; /* Label color */
+}
+.results-icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: #FFD700; /* Icon color (gold) */
+  font-size: 24px; /* Adjust size as needed */
+  margin-right: 5px; /* Spacing between icon and label */
+}
+
+.label {
+  font-size: 16px; /* Label font size */
+  color: #333; /* Label color */
+}
+.work-done-icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 24px; /* Adjust size as needed */
+  color: #008000; /* Adjust color as needed (green) */
+  margin-right: 5px; /* Spacing between icon and label */
+}
+
+.label {
+  font-size: 16px; /* Label font size */
+  color: #333; /* Label color */
+}
+
+.step-icon {
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  background-color: #007bff; /* Adjust background color */
+  color: #fff; /* Adjust icon color */
+  border-radius: 50%; /* Make it circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px; /* Adjust icon size */
+}
+.blue-tick {
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+  background-color: #3897f0; /* Instagram blue color */
+  border-radius: 50%; /* Make it circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px; /* Spacing between circle and checkmark */
+}
+
+.circle i {
+  color: #fff; /* Checkmark color */
+}
+.certificate-logo {
+  width: 90px; /* Adjust size as needed */
+  height: 90px; /* Adjust size as needed */
+  border-radius: 50%; /* Make it circular */
+  overflow: hidden; /* Hide overflow */
+}
+
+.certificate-logo img {
+  width: 100%; /* Make image fill the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.upload-button {
+  padding: 10px 20px; /* Adjust padding as needed */
+  
+  color: white; /* Text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center; /* Align items vertically */
+}
+
+/* Optional: Add hover effect *
+
+/* Optional: Hide the default file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Optional: Style for the image */
+.upload-icon {
+  width: 20px; /* Adjust image width */
+  height: 20px; /* Adjust image height */
+  margin-right: 5px; /* Adjust space between image and text */
+}
+#uploadLabel {
+  margin-right: 110px; /* Adjust as needed */
+}
+
+#uploadLabel i {
+  margin-left: 40px; /* Adjust as needed */
+}
+
+h1 {
+
+  padding: 2rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+form {
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #7091ff;
+    color: white;
+    width: 75px;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #8594ff;
+}
+
+  </style>
+  
+  
+  </head>
+  <body>
+    
+  <div class="navbar" style="background-color: rgb(32, 32, 32); height: 46px;">
+  
+    <div class="dropdown">
+      <button class="dropbtn" style="
+          background-color: #202020;
+          border: #313131;
+      ">
+        <a href="#" class="w3-bar-item w3-button w3-green"><i class="fa fa-home" style="
+        color: black;
+          color: #fff !important;
+          background-color: #1c201c00 !important;
+      "></i></a>
+      </button>
+      <div class="dropdown-content">
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+    <div class="logo">
+      <img src="assets/Screenshot (368).png" style="height: 40px; margin-right: 650px;">
+    </div>
+  </div>
+  
+  
+  <div id="mySidebar" class="sidebar" style="width: 0px;">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <div class="dropdown">
+  
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Search...">
+    <button id="search-button"><img src="search-icon.png" alt="Search"></button>
+</div>
+  
+  
+  
+  <!-- Container to display search results -->
+  </button>  
+  
+      <a href="#Home" class="active">Home</a>
+    </div>
+    <a href="#About">About</a>
+    <div class="dropdown">
+      <a href="#Services">Services</a>
+      <div class="dropdown-content">
+        <a href="#Image Generator">Image Detector &amp; Video Detecttor</a>
+      </div>
+    </div>
+    <a href="#Contact">Contact</a>
+  </div>
+  
+  <div id="main" style="margin-left: 0px;">
+    <button class="openbtn" onclick="openNav()">☰ </button>
+   <section id="Home"><div style="
+      width: 1500px;
+      height: 700px;
+      margin-left: 180px;
+      margin-top:0px;
+  ">
+   <img src="assets/Untitled design (1).gif"></div></section>
+   <div class="col-lg-6 col-md-4">
+    <h1 class="text-center mb-4" style="
+    padding-bottom: 0px;
+    border-bottom-width: 00px;
+"> <strong> Lenscan.AI, Your tool against AI misinformation </strong> </h1>
+   <!-- <p>Detect Deepfakes Before They Spread</p> -->
+     <h2 style="color: black;">Detect if an audio or video is a deepfake or not using  AI Video Detector </h2>
+     <section class="section-container">
+      <div class="section-image" style="
+    margin-right: 30px;
+    margin-top: 110px;
+">
+        <img src="assets/deepfake detector.png" alt="deepfake detector" title="deepfake detector" style="
+      width: 350px;
+  ">
+      </div>
+      <div class="section-text" style="
+      margin-left: 50px;
+      margin-bottom: 110px;
+  ">
+        <h2><strong>Protect yourself from deepfakes</strong></h2>
+        <p>Deepfake videos and audios can be used to spread misinformation and deceive people. With our Deepfake Detector, you can confidently filter out AI-generated videos and audios and ensure authenticity in important situations like media reporting and legal proceedings.</p>
+       
+      </div>
+    </section>
+  
+  
+  </div>
+    <!-- Image Slider 1 -->
+    <div class="slider" style="
+      margin-top: 70px;
+  ">
+      <div class="slides">
+        <img class="slide" src="assets/newsroom-deepfake-feat.jpg" alt="Slide 1" style="display: none;">
+        <img class="slide" src="assets/im.png" alt="Slide 2" style="display: none;">
+        <img class="slide" src="assets/images.jpg" alt="Slide 3" style="display: block;">
+      </div>
+      <a class="prev" onclick="prevSlide(0)">❮</a>
+      <a class="next" onclick="nextSlide(0)">❯</a>
+    </div>
+  </div>
+  <section id="About">
+    
+    <!-- Your about section content goes here -->
+  
+        <section class="section-container" style="
+    margin-left: 0px;
+">
+     
+      
+      <div class="section-text" style="
+      margin-left: 0px;
+  ">
+        <h2 style="
+    margin-right: 0px;
+"><strong>Lenscan.AI</strong></h2>
+        <p>Lenscan.ai is a cutting-edge platform at the forefront of combating the rising threat of deepfake content.
+    Leveraging advanced artificial intelligence algorithms and forensic techniques, Lenscan.ai offers robust detection capabilities to identify manipulated media with unparalleled accuracy.</p>
+        
+      </div>
+    </section> <section class="section-container" style="
+    margin-left: 0px;
+    margin-right: 0px;
+">
+      
+      <div class="section-text" style="
+      margin-left: 0px;
+      margin-right: 40px;
+      margin-bottom: 230px;
+  ">
+          <h2><strong>Lenscan.AI will Lead You to Video and Audio Authenticity</strong> </h2>
+        <p>We understand the danger of deepfakes and the importance of authentic videos and audios. With our expert verification services, you can confidently filter out false videos and audios and ensure their authenticity.</p>
+       
+      </div>
+      <div class="section-image">
+        <img src="assets/Video and Audio Authenticity.png" alt="Video and Audio Authenticity" title="Video and Audio Authenticity" style="
+    width: 400px;
+">
+      </div>
+    </section>
+    
+    
+    <p style="color: rgb(0, 0, 0);">By scrutinizing facial features,contextual cues, and metadata, Lenscan.ai empowers users to distinguish between authentic and manipulated content, 
+  helping to safeguard against the harmful implications of deepfake technology. With its commitment to innovation and 
+      continuous improvement, Lenscan.ai stands as a vital tool in the ongoing battle against digital disinformation and deception.</p>
+    
+      <section class="section-container" style="
+    margin-left: 0px;
+">
+        <div class="section-text" style="
+    margin-bottom: 180px;
+">
+          <h2><strong>Don't Trust Any Voice You Hear</strong></h2>
+          <p> In today's world, where deepfakes are becoming more sophisticated and widespread, it's increasingly important to be able to trust the authenticity of the voices we hear. </p>
+       
+        </div>
+        <div class="section-image">
+          <img src="assets/deepfake ai.jpg" alt="deepfake ai" title="deepfake ai" style="
+    width: 350px;
+">
+        </div>
+      </section>
+      <section id="Services">
+    
+  <section class="section-container" style="
+    margin-left: 00px;
+    margin-top: 0px;
+">
+      <div class="container">
+        <div class="row" style="
+    margin-top: 90px;
+    display: flex;
+">
+          <div class="col-md-4">
+            <div class="step">
+              <div class="step-icon">
+                <input type="file" id="fileInput" style="display: none;/* margin-right: 30px; */">
+                <label for="fileInput" id="uploadLabel" style="
+    margin-right: 110px;
+">
+                  <i class="fa fa-upload" style="
+    justify-content: center;
+    margin-left: 30px;
+"></i></label>
+                
+              </div>
+              <h3><strong>Step 1: Upload your video or audio file</strong></h3>
+              <p style="
+    margin-top: 25px;
+">Choose a video or audio file that you want to verify for authenticity. For best results, we recommend choosing a video or audio file that is between 5 and 7 seconds long and does not have any edits or special effects.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="step" style="
+    margin-left: 50px;
+">
+              <div class="step-icon"> <div class="search-icon">
+    
+    <button class="search-button">
+      <span class="icon">🔍</span> <!-- Unicode for search icon -->
+    </button>
+  </div>
+                
+              </div><h3 style="
+    margin-bottom: 20px;
+"><strong>Step 2: Click "Detect Deepfake"</strong></h3>
+              
+              <p style="
+    margin-top: 5px;
+">After uploading your video or audio file, click the "Detect Deepfake" button to start the verification process.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="step" style="
+    margin-left: 60px;
+">
+          
+                <div class="certificate-logo" style="
+    margin-left: 190px;
+
+    ">
+                  <img src="C:\Users\mani chourasiya\Documents\project 2\download-removebg-preview.png" alt="Certificate Logo" style="
+    margin-right: 110px;
+">
+                </div>
+              <h3 style="
+    margin-left: 150px;
+"><strong>View Results</strong></h3>
+              <p style="
+    margin-top: 5px;
+">You will receive a result that shows the probability of the video or audio being either an AI-generated deepfake or a natural video or audio. This information will help you determine the authenticity of the video or audio you have uploaded.</p>
+            </div>
+          </div>
+        </div>
+      </div></section>
+     
+<div class="section-text" style="
+margin-bottom: 40px;
+">
+  <h2><strong>Audio and Video Authenticity and Avoid Misinformation</strong></h2>
+  <div class="section-image">
+    <img src="assets/detect ai.png" alt="detect ai" title="detect ai" style="
+  margin-right: 50px;
+  width: 350px;
+  ">
+  </div>
+  <p>Don't let the spread of deepfake videos and audios affect you or your organization. Ensure audio and video authenticity and avoid the potential pitfalls of misinformation with the services of Lenscan.AI. </p>
+
+</div>
+</section>
+  <section id="Image-detector"><h2 style="
+    margin-top: 20px;
+    justify-items: center;
+    margin-left: 530px;
+    align-items: center;
+"><strong>Image Detector &amp; Video Detector
+</strong></h2><div class="col-md-4">
+  <div class="step">
+    <a href ="https://minor-project-2zh1.onrender.com" class="upload-icon" style="
+    margin-left: 750px;
+">
+      <i class="fa fa-upload icon"></i>
+    </a>
+    <p id="selectedFileName" style="
+    margin-left: 650px;
+">Upload Your Images / Videos here.</p>
+  </div>
+<section id="Contact">
+  <div class="container">
+    <h2 style="
+    margin-bottom: auto;
+"><strong>For Query Contact Us :</strong></h2>
+<form id="contactForm" method="post" action="contact.php">
+  <label for="name" style="width: 0px;">Name:</label>
+  <input type="text" id="name" name="name" required="">
+
+  <label for="email" style="
+width: 0px;
+">Email:</label>
+  <input type="email" id="email" name="email" required="">
+
+  <label for="Contact" style="width: 0px;">Contact:</label>
+  <input type="text" id="name" name="name" required="">
+
+  <label for="message" style="
+width: 0px;
+">Message:</label>
+  <textarea id="message" name="message" rows="4" cols="50" required=""></textarea>
+
+  <input type="submit" value="Submit">
+</form>
+
+  <script>
+   
+      // JavaScript to toggle dropdown
+      document.querySelector('.dropbtn').addEventListener('click', function() {
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === 'block') {
+          dropdownContent.style.display = 'none';
+        } else {
+          dropdownContent.style.display = 'block';
+        }
+      });
+    
+    var slideIndex = [0, 0, 0];
+  
+    function prevSlide(sliderIndex) {
+      if (slideIndex[sliderIndex] <= 0) {
+        slideIndex[sliderIndex] = document.querySelectorAll('.slider')[sliderIndex].querySelectorAll('.slide').length - 1;
+      } else {
+        slideIndex[sliderIndex]--;
+      }
+      showSlide(sliderIndex);
+    }
+  
+    function nextSlide(sliderIndex) {
+      if (slideIndex[sliderIndex] >= document.querySelectorAll('.slider')[sliderIndex].querySelectorAll('.slide').length - 1) {
+        slideIndex[sliderIndex] = 0;
+      } else {
+        slideIndex[sliderIndex]++;
+      }
+      showSlide(sliderIndex);
+    }
+  
+    function showSlide(sliderIndex) {
+      var slides = document.querySelectorAll('.slider')[sliderIndex].querySelectorAll('.slide');
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+      }
+      slides[slideIndex[sliderIndex]].style.display = 'block';
+    }
+  
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+  
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+  
+      var slideIndex = [0, 0, 0];
+      var intervalId; // Variable to store the interval ID
+    
+      function prevSlide(sliderIndex) {
+        if (slideIndex[sliderIndex] <= 0) {
+          slideIndex[sliderIndex] = document.querySelectorAll('.slider')[sliderIndex].querySelectorAll('.slide').length - 1;
+        } else {
+          slideIndex[sliderIndex]--;
+        }
+        showSlide(sliderIndex);
+      }
+    
+      function nextSlide(sliderIndex) {
+        if (slideIndex[sliderIndex] >= document.querySelectorAll('.slider')[sliderIndex].querySelectorAll('.slide').length - 1) {
+          slideIndex[sliderIndex] = 0;
+        } else {
+          slideIndex[sliderIndex]++;
+        }
+        showSlide(sliderIndex);
+      }
+    
+      function showSlide(sliderIndex) {
+        var slides = document.querySelectorAll('.slider')[sliderIndex].querySelectorAll('.slide');
+        for (var i = 0; i < slides.length; i++) {
+          slides[i].style.display = 'none';
+        }
+        slides[slideIndex[sliderIndex]].style.display = 'block';
+      }
+    
+      function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+      }
+    
+      function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+      }
+    
+      function startSliderAuto() {
+        intervalId = setInterval(function() {
+          nextSlide(0); // Adjust the sliderIndex as needed
+        }, 3000); // 3000 milliseconds = 3 seconds
+      }
+    
+      function stopSliderAuto() {
+        clearInterval(intervalId);
+      }
+    
+      // Start automatic sliding when the page loads
+      document.addEventListener("DOMContentLoaded", function() {
+        startSliderAuto();
+      });
+    
+      function scrollUp() {
+        window.scrollBy(0, -50); // Adjust the scrolling distance as needed
+    }
+    
+    function scrollDown() {
+        window.scrollBy(0, 50); // Adjust the scrolling distance as needed
+    }
+    let sections = document.querySelectorAll('section');
+    let navLinks = document.querySelectorAll('header nav a');
+  
+  ndow.onscroll = () => 
+    sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+  
+        if(top >= offset && top < offset + height) {
+          navLinks.forEach(links => {
+            links.classList.remove('active');
+        document.classList.remove('header nav a [href*=' + id +']').classList.add('active');
+          })
+    };
+  });
+  document.getElementById('fileInput').addEventListener('change', function() {
+    var file = this.files[0];
+    // Handle the file here, you can access it using 'file' variable
+    console.log('Selected file:', file);
+  });
+  // Optional JavaScript if you want to add interactivity
+
+// Example: Add a click event listener to the certificate logo
+document.querySelector('.certificate-logo').addEventListener('click', function() {
+  alert('Certificate Logo clicked!');
+});
+// JavaScript code to handle file input change event
+document.getElementById('fileInput').addEventListener('change', function() {
+  var fileInput = document.getElementById('fileInput');
+  var selectedFileName = document.getElementById('selectedFileName');
+  
+  // Display the selected file name
+  if (fileInput.files.length > 0) {
+    selectedFileName.textContent = 'Selected file: ' + fileInput.files[0].name;
+  } else {
+    selectedFileName.textContent = 'Upload Your Images / Videos here.';
+  }
+});
+function submitForm() {
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var message = document.getElementById("message").value;
+
+  var xhr = new XMLHttpRequest();
+  var formData = new FormData();
+  formData.append("name", name);
+  formData.append("email", email);
+  formData.append("message", message);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        document.getElementById("success-message").classList.remove("hidden");
+        document.getElementById("error-message").classList.add("hidden");
+        document.getElementById("contact-form").reset();
+      } else {
+        document.getElementById("error-message").classList.remove("hidden");
+        document.getElementById("success-message").classList.add("hidden");
+      }
+    }
+  };
+
+  xhr.open("POST", "submit.php");
+  xhr.send(formData);
+}
+document.getElementById("search-button").addEventListener("click", function() {
+  var searchTerm = document.getElementById("search-input").value;
+  // Encode the search term for URL
+  var encodedSearchTerm = encodeURIComponent(searchTerm);
+  // Construct the Google search URL
+  var googleSearchUrl = "https://www.google.com/search?q=" + encodedSearchTerm;
+  // Redirect the user to the Google search URL
+  window.location.href = googleSearchUrl;
+});
+  </script>
+  </div></section></div></section></div></div></h2></section></section></body></html>
